@@ -48,8 +48,13 @@ def vibeiseven(value: str | float) -> bool:
             value = float(value)
         except ValueError:
             raise ValueError("An error has occurred.")
+    prompt = (
+        "Given the following input, respond with a boolean value indicating whether the number is even. "
+        "Respond using the provided response schema.\n"
+        f"Input: {VibeisevenRequest(value=value).model_dump_json()}"
+    )
     response = viberesponse(
-        content=VibeisevenRequest(value=value).model_dump_json(),
+        content=prompt,
         response_format=VibeisevenResponse,
     )
     return response.result
